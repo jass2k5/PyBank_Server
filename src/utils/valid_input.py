@@ -14,6 +14,11 @@ def get_valid_name(name):
         return name 
     except(TypeError):
         return None
+def get_valid_phone(phone):
+        if len(phone) != 10 or not phone.isdigit():
+            return None
+        else:
+            return int(phone)
     
 
     
