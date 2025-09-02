@@ -31,6 +31,7 @@ class Banking_system:
 
     def add_account(self):
         while True:
+            print("Creating an account")
             print("enter y/n to continue or  exit..\n")
             yesorno = input("Y/N").upper()
             if yesorno == "NO":
@@ -46,7 +47,6 @@ class Banking_system:
             #generating account jsut like passwords
             generation = True
             while generation:
-                character = string.ascii_letters + string.digits
                 digits = "".join(random.choices(string.digits,k =6))
                 letters = "".join(random.choices(string.ascii_letters,k=4))
                 account_number = "".join(random.sample(letters+digits,k=10))
@@ -144,8 +144,45 @@ class Banking_system:
         print(f"TOTAL ACCOUNTS FOUND : {len(self.acc_holder_data)}")
         for idx,show in enumerate(self.acc_holder_data,start = 1):
             print(f"{idx}\n---NAME : {show['Name']}\n---ACCOUNT NUMBER : {show['Account number']}\n---PHONE : {show['Contact']}\n---BALANCE:{show['Balance']}\n---DATE OF REGISTRATION {show['created at']}\n---LAST TRANSACTION or UPDATE ON :{show['edited at']} ")
-    
-    
+        self.delete_contact()
+    def delete_contact(self):
+        print("DO YOU WANT TO DELETE AN ACCOUNT")
+        while True:
+           print("type y to delete and n to exit\n")
+           yesorno = input("Y/N").upper()
+           if yesorno == "N":
+                print("goodbye")
+                break
+           accnumber = input("enter the acc number").strip()
+           found = False
+           for idx,account in enumerate(self.acc_holder_data):
+               if account['Account number'] == accnumber:
+                   found = True
+                   print("account found\n deleting account..".title())
+                   print(F"DELETED ACCOUNT:{self.acc_holder_data[idx]}")
+                   del self.acc_holder_data[idx]
+                   self.save_data()
+                   break
+           if not found:
+            print("account not found")
+            
+          
+        self.delete_all()
+    def delete_all(self):
+        print("WARNING - IF YOU CONTINUE ALL ACCOUNTS WILL BE DELETED")
+        print("Y TO CONTINUE N TO EXIT")
+        yesorno = input("Y/N").upper()
+        if yesorno == "N":
+            print("exiting..")
+            return
+        print("DELETING ALL ACCOUNTS...")
+        self.acc_holder_data.clear()
+        self.save_data()
+        self.show_accounts()
+
+
+
+
         
     
 
